@@ -1,16 +1,4 @@
-You’re right 👍 — the **content is excellent**, but the **presentation is overwhelming** for GitHub. Recruiters and interviewers scan README files in **30–60 seconds**, so we need:
-
-* Clean sections
-* Consistent headings
-* Tables instead of paragraphs
-* Clear execution flow
-* Less emoji, more structure
-
-Below is a **clean, professional, GitHub-ready README** you can **directly paste** into `README.md`.
-
----
-
-# 📊 Multi-Level Real-Time Financial News Analytics
+# 📊 Multilevel-Streaming-Data-Analytics
 
 **Using Apache Kafka, Apache Spark & Spark ML**
 
