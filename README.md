@@ -1,18 +1,41 @@
-📊 Multi-Level Real-Time Financial News Analytics using Kafka, Spark & Spark ML
+You’re right 👍 — the **content is excellent**, but the **presentation is overwhelming** for GitHub. Recruiters and interviewers scan README files in **30–60 seconds**, so we need:
 
-📌 Project Overview
-This project implements an end-to-end Big Data streaming analytics pipeline for financial news.
-It ingests real-time news events using Apache Kafka, processes them using Apache Spark Structured Streaming, applies distributed machine learning (Spark ML) for sentiment prediction, and stores analytics results in AWS S3, enabling SQL-based querying via Amazon Athena.
-The system follows a multi-level analytics architecture, gradually enriching data at each stage.
+* Clean sections
+* Consistent headings
+* Tables instead of paragraphs
+* Clear execution flow
+* Less emoji, more structure
 
-🏗️ Architecture Flow
+Below is a **clean, professional, GitHub-ready README** you can **directly paste** into `README.md`.
+
+---
+
+# 📊 Multi-Level Real-Time Financial News Analytics
+
+**Using Apache Kafka, Apache Spark & Spark ML**
+
+---
+
+## 📌 Project Overview
+
+This project implements an **end-to-end real-time Big Data streaming analytics pipeline** for financial news sentiment analysis.
+
+The system ingests live news events using **Apache Kafka**, processes and enriches them using **Apache Spark Structured Streaming**, applies **distributed machine learning (Spark ML)** for sentiment prediction, and stores analytics results in **AWS S3**, enabling SQL-based querying through **Amazon Athena**.
+
+A **multi-level analytics architecture** is used, where data is incrementally validated, structured, enriched, and analyzed at each stage.
+
+---
+
+## 🏗️ System Architecture
+
+```
 Financial News CSV
         ↓
 Kafka Producer
         ↓
 Kafka Topic
         ↓
-Level-1 Consumer (Python – validation/filtering)
+Level-1 Consumer (Validation & Filtering)
         ↓
 Spark Structured Streaming (Level-2)
         ↓
@@ -26,29 +49,28 @@ Parquet Storage (Level-3 Output)
         ↓
 AWS S3
         ↓
-Amazon Athena (SQL Queries)
+Amazon Athena (SQL Analytics)
+```
 
+---
 
-🧰 Technology Stack
-Layer
-Technology
-Messaging
-Apache Kafka
-Stream Processing
-Apache Spark Structured Streaming
-Machine Learning
-Spark ML (Logistic Regression)
-Storage
-Parquet, AWS S3
-Query Engine
-Amazon Athena
-Language
-Python
-Cloud
-AWS EC2
+## 🧰 Technology Stack
 
+| Layer             | Technology                        |
+| ----------------- | --------------------------------- |
+| Messaging         | Apache Kafka                      |
+| Stream Processing | Apache Spark Structured Streaming |
+| Machine Learning  | Spark ML (Logistic Regression)    |
+| Storage           | Parquet, AWS S3                   |
+| Query Engine      | Amazon Athena                     |
+| Language          | Python                            |
+| Cloud Platform    | AWS EC2                           |
 
-📁 Actual Project Structure (Verified)
+---
+
+## 📁 Project Structure
+
+```
 kafka-project/
 │
 ├── docker-compose.yml
@@ -63,7 +85,7 @@ kafka-project/
 ├── check_level2.py
 │
 ├── spark_ml_features.py
-├── spark_ml_train.py          ← Spark ML + rule-based correction logic
+├── spark_ml_train.py
 │
 ├── level2_output/
 ├── level3_ml_predictions_fixed/
@@ -73,142 +95,216 @@ kafka-project/
 │
 ├── README.md
 └── venv/
+```
 
+---
 
-⚠️ Very Important Environment Note (READ THIS)
-❌ Why venv DOES NOT work for Spark ML
-Spark ML internally depends on NumPy
-Spark (3.5.x) still expects distutils
-Python 3.12+ removed distutils
-Result:
-ModuleNotFoundError: No module named 'numpy'
-ModuleNotFoundError: No module named 'distutils'
+## ⚠️ Important Environment Note (Very Important)
 
+### ❌ Why `venv` does NOT work for Spark ML
 
-✅ Solution Used in This Project
-We created a separate Conda environment (sparkml) specifically for Spark ML execution.
-👉 Kafka + Spark Streaming → venv
-👉 Spark ML → conda (sparkml)
-This separation is intentional and correct.
+* Spark ML depends on **NumPy**
+* Spark 3.5.x internally expects **`distutils`**
+* Python **3.12+ removes `distutils`**
+* Resulting errors:
 
-⚙️ Prerequisites
-EC2 Instance
-Ubuntu 22.04 / 24.04
-Minimum recommended:
-4 vCPU
-8–16 GB RAM
-30+ GB storage
-Software
-Docker & Docker Compose
-Java 11
-Apache Spark 3.5.x
-Python 3.x
-Conda (Miniconda or Anaconda)
-AWS CLI
+  ```
+  ModuleNotFoundError: No module named 'numpy'
+  ModuleNotFoundError: No module named 'distutils'
+  ```
 
-🚀 Step-by-Step Execution
+### ✅ Solution Used
 
-🔹 STEP 1: Start Kafka
+A **separate Conda environment** is used **only for Spark ML** execution.
+
+| Component               | Environment       |
+| ----------------------- | ----------------- |
+| Kafka + Spark Streaming | Python `venv`     |
+| Spark ML                | Conda (`sparkml`) |
+
+This separation is **intentional and correct**.
+
+---
+
+## ⚙️ Prerequisites
+
+### Infrastructure
+
+* AWS EC2 (Ubuntu 22.04 / 24.04)
+* Minimum: **4 vCPU, 8–16 GB RAM, 30+ GB storage**
+
+### Software
+
+* Docker & Docker Compose
+* Java 11
+* Apache Spark 3.5.x
+* Python 3.x
+* Conda (Miniconda / Anaconda)
+* AWS CLI
+
+---
+
+## 🚀 Step-by-Step Execution Guide
+
+### 🔹 Step 1: Start Kafka
+
+```bash
 docker-compose up -d
 docker ps
+```
 
+---
 
-🔹 STEP 2: Python Environment for Kafka & Streaming
+### 🔹 Step 2: Python Environment (Kafka & Streaming)
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install kafka-python pandas pyspark
+```
 
+---
 
-🔹 STEP 3: Start Kafka Producer
+### 🔹 Step 3: Start Kafka Producer
+
+```bash
 python producer.py
+```
 
-Streams CSV data into Kafka topic.
+Streams financial news CSV data into Kafka.
 
-🔹 STEP 4: Level-2 Spark Streaming (Structured Streaming)
+---
+
+### 🔹 Step 4: Level-2 Spark Streaming
+
+```bash
 spark-submit level2_spark_analytics.py
+```
 
 ✔ Reads Kafka topic
-✔ Parses JSON
-✔ Stores structured Parquet data
-Output:
-level2_output/
+✔ Parses JSON events
+✔ Writes structured Parquet output
 
+**Output:** `level2_output/`
 
-🔹 STEP 5: Verify Level-2 Output
+---
+
+### 🔹 Step 5: Verify Level-2 Output
+
+```bash
 spark-submit check_level2.py
+```
 
+---
 
-🔹 STEP 6: Create Conda Environment for Spark ML (CRITICAL)
+### 🔹 Step 6: Create Conda Environment for Spark ML (Critical)
+
+```bash
 conda create -n sparkml python=3.11 -y
 conda activate sparkml
 pip install numpy
+```
 
-👉 All Spark ML steps must be run inside this environment
+⚠️ All Spark ML steps **must** run in this environment.
 
-🔹 STEP 7: Spark ML Feature Engineering
+---
+
+### 🔹 Step 7: Spark ML Feature Engineering
+
+```bash
 spark-submit spark_ml_features.py
+```
 
-Creates:
-Tokenized text
-Stop-word removal
-TF-IDF feature vectors
+Generates:
 
-🔹 STEP 8: Spark ML Training + Rule-Based Corrections
+* Tokenized text
+* Stop-word removal
+* TF-IDF feature vectors
+
+---
+
+### 🔹 Step 8: Spark ML Training & Corrections
+
+```bash
 spark-submit spark_ml_train.py
+```
 
-What happens inside spark_ml_train.py:
-Loads Level-2 Parquet
-Applies rule-based financial corrections
-(e.g., “breach”, “collapse” → Negative)
-Encodes labels using StringIndexer
-Trains Logistic Regression
-Generates predictions & probabilities
-Stores results as Parquet
-Output:
-level3_ml_predictions_fixed/
+Inside this step:
 
+* Loads Level-2 Parquet data
+* Applies **rule-based financial sentiment corrections**
+* Encodes labels
+* Trains **Logistic Regression**
+* Generates predictions & probabilities
 
-🔹 STEP 9: Upload Level-3 Output to S3
+**Output:** `level3_ml_predictions_fixed/`
+
+---
+
+### 🔹 Step 9: Upload Output to AWS S3
+
+```bash
 aws s3 cp level3_ml_predictions_fixed/ \
-s3://<your-bucket-name>/level3_ml_predictions/ \
---recursive
+s3://<your-bucket>/level3_ml_predictions/ --recursive
+```
 
+---
 
-🔹 STEP 10: Query via Amazon Athena
+### 🔹 Step 10: Query Using Amazon Athena
+
+```sql
 CREATE DATABASE financial_news_db;
 
 CREATE EXTERNAL TABLE financial_news_db.sentiment_predictions (
-  Headline STRING,
-  Sentiment STRING,
+  headline STRING,
+  sentiment STRING,
   prediction DOUBLE,
   probability ARRAY<DOUBLE>
 )
 STORED AS PARQUET
-LOCATION 's3://<your-bucket-name>/level3_ml_predictions/';
+LOCATION 's3://<your-bucket>/level3_ml_predictions/';
+```
 
-SELECT * FROM financial_news_db.sentiment_predictions LIMIT 10;
+```sql
+SELECT * 
+FROM financial_news_db.sentiment_predictions 
+LIMIT 10;
+```
 
+---
 
-🧠 Machine Learning Summary
-Algorithm: Logistic Regression (Spark ML)
-Features: TF-IDF
-Classes: Positive, Negative, Neutral
-Enhancement: Rule-based sentiment correction
-Reason: Scalable, explainable, production-friendly
+## 🧠 Machine Learning Summary
 
-📈 Key Learnings
-Kafka + Spark Streaming integration
-Multi-level analytics architecture
-Distributed ML using Spark ML
-Cloud storage & SQL analytics
-Environment isolation for Spark ML stability
+| Aspect      | Details                                 |
+| ----------- | --------------------------------------- |
+| Algorithm   | Logistic Regression (Spark ML)          |
+| Features    | TF-IDF                                  |
+| Classes     | Positive, Negative, Neutral             |
+| Enhancement | Rule-based sentiment correction         |
+| Reason      | Scalable, explainable, production-ready |
 
-🔮 Future Scope
-Replace Logistic Regression with LSTM (offline training)
-Real-time Spark ML inference from Kafka
-QuickSight dashboards
-Model versioning & evaluation metrics
+---
 
-👤 Author
-Rushikesh Ashok Ghotkar
+## 📈 Key Learnings
+
+* Kafka & Spark Structured Streaming integration
+* Multi-level analytics architecture
+* Distributed machine learning with Spark ML
+* Cloud-based analytics using S3 & Athena
+* Environment isolation for Spark ML stability
+
+---
+
+## 🔮 Future Enhancements
+
+* Replace Logistic Regression with LSTM (offline training)
+* Real-time Spark ML inference from Kafka
+* Amazon QuickSight dashboards
+* Model versioning and evaluation metrics
+
+---
+
+## 👤 Author
+
+**Rushikesh Ashok Ghotkar**
 B.E. – Artificial Intelligence & Data Science
