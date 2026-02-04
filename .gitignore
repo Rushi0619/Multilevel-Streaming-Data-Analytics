@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Spark
+checkpoint_level2/
+checkpoint_*
+/tmp/
+
+# Data outputs
+level2_output/
+level3_ml_predictions/
+level3_ml_predictions_fixed/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log

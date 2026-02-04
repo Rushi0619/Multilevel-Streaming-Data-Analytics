@@ -1,0 +1,34 @@
+import time
+import json
+import pandas as pd
+from kafka import KafkaProducer
+
+# Kafka configuration
+KAFKA_BROKER = "localhost:9092" #where Kafka is running
+TOPIC_NAME = "test-topic"
+
+# Create Kafka producer
+producer = KafkaProducer(
+    bootstrap_servers=KAFKA_BROKER,             #Kafka uses this broker to discover the cluster
+    value_serializer=lambda v: json.dumps(v).encode("utf-8")           #Converts Python dictionary → JSON string → bytes
+)
+
+print("Kafka CSV Producer started...")
+
+# Load real CSV dataset
+df = pd.read_csv("financial_news_events.csv")
+
+print(f"Total records to stream: {len(df)}")
+
+# Stream each row as a Kafka message
+for index, row in df.iterrows():
+    message = row.to_dict()
+
+    producer.send(TOPIC_NAME, message)
+    print(f"Sent record {index + 1}: {message}")
+
+    time.sleep(1)  # simulate real-time feed (1 second per event)
+
+producer.flush()
+print("Finished streaming all CSV records.")
+
