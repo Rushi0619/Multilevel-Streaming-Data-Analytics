@@ -1,4 +1,5 @@
 📊 Multi-Level Real-Time Financial News Analytics using Kafka, Spark & Spark ML
+
 📌 Project Overview
 This project implements an end-to-end Big Data streaming analytics pipeline for financial news.
 It ingests real-time news events using Apache Kafka, processes them using Apache Spark Structured Streaming, applies distributed machine learning (Spark ML) for sentiment prediction, and stores analytics results in AWS S3, enabling SQL-based querying via Amazon Athena.
