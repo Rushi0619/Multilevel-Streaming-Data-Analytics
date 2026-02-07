@@ -16,29 +16,8 @@ A **multi-level analytics architecture** is used, where data is incrementally va
 
 ## 🏗️ System Architecture
 
-```
-Financial News CSV
-        ↓
-Kafka Producer
-        ↓
-Kafka Topic
-        ↓
-Level-1 Consumer (Validation & Filtering)
-        ↓
-Spark Structured Streaming (Level-2)
-        ↓
-Parquet Storage (Level-2 Output)
-        ↓
-Spark ML (TF-IDF + Logistic Regression)
-        ↓
-Rule-Based Financial Corrections
-        ↓
-Parquet Storage (Level-3 Output)
-        ↓
-AWS S3
-        ↓
-Amazon Athena (SQL Analytics)
-```
+<img width="2262" height="1175" alt="image" src="https://github.com/user-attachments/assets/8113a00e-f3e2-487e-9a99-5d754f9f38f9" />
+
 
 ---
 
